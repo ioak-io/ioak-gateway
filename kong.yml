@@ -14,7 +14,7 @@ services:
     paths:
     - /express
 - name: neuralweb-service
-  url: http://neuralweb:8015
+  url: http://neuralwebservice:8015
   routes:
   - name: neuralweb-route
     paths:
