@@ -38,4 +38,4 @@ services:
 
 networks:
   ioak-net:
-    driver: bridge
+    external: true
