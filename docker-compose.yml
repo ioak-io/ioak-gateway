@@ -1,0 +1,39 @@
+
+services:
+  kong:
+    build: .
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
+    networks:
+      - ioak-net
+
+  fastapi-app:
+    build:
+      context: ./fastapi-app
+    ports:
+      - "8002:8000"
+    networks:
+      - ioak-net
+
+  express-app:
+    build:
+      context: ./express-app
+    ports:
+      - "3000:3000"
+    networks:
+      - ioak-net
+
+networks:
+  ioak-net:
+    driver: bridge

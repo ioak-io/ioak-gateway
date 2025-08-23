@@ -1,0 +1,16 @@
+
+_format_version: "1.1"
+
+services:
+- name: fastapi-service
+  url: http://fastapi-app:8002
+  routes:
+  - name: fastapi-route
+    paths:
+    - /fastapi
+- name: express-service
+  url: http://express-app:3000
+  routes:
+  - name: express-route
+    paths:
+    - /express
