@@ -19,3 +19,4 @@ services:
   - name: neuralweb-route
     paths:
     - /neuralweb
+    preserve_host: true
