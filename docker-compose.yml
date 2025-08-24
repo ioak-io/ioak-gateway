@@ -32,7 +32,7 @@ services:
     build:
       context: ./express-app
     ports:
-      - "3000:3000"
+      - "4000:4000"
     networks:
       - ioak-net
 

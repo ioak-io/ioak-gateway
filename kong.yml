@@ -8,7 +8,7 @@ services:
     paths:
     - /fastapi
 - name: express-service
-  url: http://express-app:3000
+  url: http://express-app:4000
   routes:
   - name: express-route
     paths:
