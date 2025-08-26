@@ -31,6 +31,7 @@ services:
       - ioak-network
 
   kong:
+    container_name: kong-gateway
     build: .
     ports:
       - "8000:8000"
