@@ -1,22 +1,27 @@
 _format_version: "1.1"
 
 services:
-- name: fastapi-service
-  url: http://fastapi-app:8002
+- name: keycloak-service
+  url: http://keycloak:8080
   routes:
-  - name: fastapi-route
+  - name: keycloak-route
     paths:
-    - /fastapi
-- name: express-service
-  url: http://express-app:4000
+    - /keycloak
+- name: mongodb-service
+  url: http://mongodb:8080
   routes:
-  - name: express-route
+  - name: mongodb-route
     paths:
-    - /express
-- name: neuralweb-service
-  url: http://neuralwebservice.docker:8025
+    - /mongo
+- name: auth-service
+  url: http://auth-service:3000
   routes:
-  - name: neuralweb-route
+  - name: auth-route
     paths:
-    - /neuralweb
-    preserve_host: true
+    - /auth
+# - name: neuralweb-service
+#   url: http://neuralwebservice.docker:8025
+#   routes:
+#   - name: neuralweb-route
+#     paths:
+#     - /neuralweb

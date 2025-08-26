@@ -1,6 +1,34 @@
 version: '3.3'
 
 services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - ioak-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command: start-dev
+    restart: always
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./.env
+    environment:
+      KC_DB: dev-file
+      KC_HTTP_PORT: 8080
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - ioak-network
+
   kong:
     build: .
     ports:
@@ -17,25 +45,13 @@ services:
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_ADMIN_LISTEN: 0.0.0.0:8001, 0.0.0.0:8444 ssl
     networks:
-      - ioak-net
-    
+      - ioak-network
 
-  fastapi-app:
-    build:
-      context: ./fastapi-app
-    ports:
-      - "8002:8000"
-    networks:
-      - ioak-net
+volumes:
+  mongo_data:
+  keycloak_data:
 
-  express-app:
-    build:
-      context: ./express-app
-    ports:
-      - "4000:4000"
-    networks:
-      - ioak-net
 
 networks:
-  ioak-net:
+  ioak-network:
     external: true

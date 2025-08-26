@@ -1,9 +1,6 @@
 # iOAK Gateway
 
-This is a microservice gateway built using Kong. It is configured to route requests to two backend services:
-
-- A FastAPI service
-- An Express.js service
+This is a microservice gateway
 
 ## Prerequisites
 
@@ -19,12 +16,6 @@ This is a microservice gateway built using Kong. It is configured to route reque
    ```
 
 2. **Access the services through the gateway:**
-
-   - **FastAPI service:**
-
-     ```bash
-     curl http://localhost:8000/fastapi
-     ```
 
    - **Express.js service:**
 
