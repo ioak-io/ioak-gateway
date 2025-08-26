@@ -1,18 +1,6 @@
 _format_version: "1.1"
 
 services:
-- name: keycloak-service
-  url: http://keycloak:8080
-  routes:
-  - name: keycloak-route
-    paths:
-    - /keycloak
-- name: mongodb-service
-  url: http://mongodb:8080
-  routes:
-  - name: mongodb-route
-    paths:
-    - /mongo
 - name: auth-service
   url: http://auth-service:3000
   routes:
