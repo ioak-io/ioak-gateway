@@ -28,6 +28,7 @@ services:
       KC_HOSTNAME: keycloak.ioak.io
       KC_HOSTNAME_PORT: 443
       KC_PROXY: edge
+      KC_HOSTNAME_STRICT_HTTPS: true
     volumes:
       - keycloak_data:/opt/keycloak/data
     networks:
