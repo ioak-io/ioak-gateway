@@ -16,7 +16,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
-    command: start-dev
+    command: start-dev    # for testing only; use `start` in production
     restart: always
     ports:
       - "8080:8080"
@@ -25,15 +25,18 @@ services:
     environment:
       KC_DB: dev-file
       KC_HTTP_PORT: 8080
-      KC_PROXY: edge
-      KC_HOSTNAME_URL: https://keycloak.ioak.io
+
+      # New hostname v2 config
+      KC_HOSTNAME: keycloak.ioak.io
       KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"   # safety, though deprecated
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_PROXY_HEADERS: xforwarded   # trust nginx forwarded headers
 
     volumes:
       - keycloak_data:/opt/keycloak/data
     networks:
       - ioak-network
+
 
   kong:
     container_name: kong-gateway
