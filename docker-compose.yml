@@ -16,25 +16,37 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
-    command: start-dev    # for testing only; use `start` in production
+    command: start
     restart: always
-    ports:
-      - "8080:8080"
-    env_file:
-      - ./.env
     environment:
-      KC_DB: dev-file
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloakpass
       KC_HTTP_PORT: 8080
       KC_HOSTNAME: keycloak.ioak.io
-      KC_HOSTNAME_STRICT: "false"
-      KC_HOSTNAME_STRICT_HTTPS: "false"
       KC_PROXY_HEADERS: xforwarded
-
-    volumes:
-      - keycloak_data:/opt/keycloak/data
+      KC_HOSTNAME_STRICT: "true"
+      KC_HOSTNAME_STRICT_HTTPS: "true"
+    depends_on:
+      - postgres
     networks:
       - ioak-network
+    volumes:
+      - keycloak_data:/opt/keycloak/data
 
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloakpass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ioak-network
 
   kong:
     container_name: kong-gateway
