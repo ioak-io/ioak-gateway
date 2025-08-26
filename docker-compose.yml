@@ -30,8 +30,7 @@ services:
       KC_HOSTNAME: keycloak.ioak.io
       KC_HOSTNAME_STRICT_HTTPS: "true"
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     networks:
       - ioak-network
     volumes:
