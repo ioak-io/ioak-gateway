@@ -5,9 +5,9 @@ services:
     image: mongo:latest
     container_name: mongodb
     restart: always
-    command: mongod --port 27016
+    command: mongod --port 27017
     ports:
-      - "27017:27016"
+      - "27016:27017"
     volumes:
       - mongo_data:/data/db
     networks:
